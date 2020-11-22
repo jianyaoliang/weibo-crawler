@@ -176,16 +176,18 @@ class Weibo(object):
             'host': 'localhost',
             'port': 3306,
             'user': 'root',
-            'password': '123456',
+            'password': '',
             'charset': 'utf8mb4'
         }
+        '''
         # 创建'weibo'数据库
-        create_database = """CREATE DATABASE IF NOT EXISTS weibo DEFAULT
+        create_database = """CREATE DATABASE IF NOT EXISTS mystock DEFAULT
                          CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"""
         self.mysql_create_database(mysql_config, create_database)
+        '''
         # 创建'user'表
         create_table = """
-                CREATE TABLE IF NOT EXISTS user (
+                CREATE TABLE IF NOT EXISTS x_weibo_user (
                 id varchar(20) NOT NULL,
                 screen_name varchar(30),
                 gender varchar(10),
@@ -210,7 +212,7 @@ class Weibo(object):
                 PRIMARY KEY (id)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"""
         self.mysql_create_table(mysql_config, create_table)
-        self.mysql_insert(mysql_config, 'user', [self.user])
+        self.mysql_insert(mysql_config, 'x_weibo_user', [self.user])
         logger.info(u'%s信息写入MySQL数据库完毕', self.user['screen_name'])
 
     def user_to_database(self):
@@ -888,7 +890,7 @@ class Weibo(object):
 
         if self.mysql_config:
             mysql_config = self.mysql_config
-        mysql_config['db'] = 'weibo'
+        mysql_config['db'] = 'mystock'
         connection = pymysql.connect(**mysql_config)
         self.mysql_create(connection, sql)
 
@@ -901,7 +903,7 @@ class Weibo(object):
             values = ', '.join(['%s'] * len(data_list[0]))
             if self.mysql_config:
                 mysql_config = self.mysql_config
-            mysql_config['db'] = 'weibo'
+            mysql_config['db'] = 'mystock'
             connection = pymysql.connect(**mysql_config)
             cursor = connection.cursor()
             sql = """INSERT INTO {table}({keys}) VALUES ({values}) ON
@@ -929,12 +931,12 @@ class Weibo(object):
             'host': 'localhost',
             'port': 3306,
             'user': 'root',
-            'password': '123456',
+            'password': '',
             'charset': 'utf8mb4'
         }
         # 创建'weibo'表
         create_table = """
-                CREATE TABLE IF NOT EXISTS weibo (
+                CREATE TABLE IF NOT EXISTS x_weibo (
                 id varchar(20) NOT NULL,
                 bid varchar(12) NOT NULL,
                 user_id varchar(20),
@@ -971,8 +973,8 @@ class Weibo(object):
                 w['retweet_id'] = ''
             weibo_list.append(w)
         # 在'weibo'表中插入或更新微博数据
-        self.mysql_insert(mysql_config, 'weibo', retweet_list)
-        self.mysql_insert(mysql_config, 'weibo', weibo_list)
+        self.mysql_insert(mysql_config, 'x_weibo', retweet_list)
+        self.mysql_insert(mysql_config, 'x_weibo', weibo_list)
         logger.info(u'%d条微博写入MySQL数据库完毕', self.got_count)
 
     def update_user_config_file(self, user_config_file_path):

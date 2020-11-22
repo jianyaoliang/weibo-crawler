@@ -527,3 +527,17 @@ txt文件名格式可以参考[程序设置](#3程序设置)中的设置user_id_
 ```
 运行程序，如果程序提示cookie无效等类似信息，说明cookie无效，否则cookie是有效的；<br>
 2.将获取的cookie填到[cookie版](https://github.com/dataabc/weiboSpider)的config.json中，运行程序。如果程序提示cookie无效等相关信息，说明cookie无效，否则cookie是有效的。因为cookie版中cookie为必需项，且**cookie版与免cookie版的cookie通用**。
+
+## 常见的大V
+
+1.ETF拯救世界
+```
+https://m.weibo.cn/profile/5687069307
+```
+2.挖龙脉的超级鹿鼎公
+```
+https://m.weibo.cn/u/3962719063
+```
+
+## 注意事项
+"user_id_list" 配置文件必须是utf格式保存
